@@ -1,2 +1,11 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
+
+html {
+  scroll-padding-top: 80px;
+}
+
+body {
+  overflow-x: hidden;
+}

@@ -1,5 +1,7 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import LenisProvider from "@/components/LenisProvider";
+
 
 const inter = Inter({
   variable: "--font-inter-sans",
@@ -18,7 +20,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col"><LenisProvider>
+        {children}
+      </LenisProvider></body>
     </html>
   );
 }

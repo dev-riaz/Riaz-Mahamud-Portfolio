@@ -9,12 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "framer-motion": "^14.2.0",
+    "lenis": "^1.3.26",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-icons": "^5.7.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
+    "daisyui": "^5.7.50",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "tailwindcss": "^4"
