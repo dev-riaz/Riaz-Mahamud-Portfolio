@@ -128,7 +128,7 @@ const Hero = () => {
   return (
     <main className="min-h-screen overflow-x-hidden  bg-black text-white">
       {/* HERO */}
-      <section className="relative min-h-[600px] bg-black lg:h-[543px] lg:min-h-0">
+      <section className="relative min-h-[600px] bg-[#303744] lg:h-[543px] lg:min-h-0">
         {/* DESKTOP LEFT PANEL */}
         <div
           className="absolute inset-y-0 left-0 z-10 hidden w-[52%] bg-[#d6d6d6] lg:block"
@@ -351,7 +351,7 @@ const Hero = () => {
         </div>
 
         {/* DESKTOP RIGHT PANEL */}
-        <div className="absolute inset-y-0 right-30  hidden w-[40%] bg-black lg:block ">
+        <div className="absolute inset-y-0 right-30  hidden w-[40%] bg-[#303744] lg:block ">
           {/* Navigation */}
           <motion.nav
             variants={navContainer}
@@ -389,16 +389,16 @@ const Hero = () => {
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex h-full items-end justify-center"
+              className="flex h-full items-end justify-center "
             >
               <Image
-                src="/portfolio image (2).png"
+                src="/portfolio_image__2_.png"
                 alt="Riaz Mahamud - Frontend Developer"
                 width={650}
                 height={800}
                 priority
                 sizes="(min-width: 1280px) 40vw, 45vw"
-                className="h-[88%] max-h-none w-auto max-w-[95%] object-contain object-bottom"
+                className="h-[88%] max-h-none w-auto max-w-[95%] object-contain object-bottom "
               />
             </motion.div>
           </Parallax>
@@ -415,12 +415,12 @@ const Hero = () => {
       </section>
 
       {/* ABOUT */}
-      <section
+      {/* <section
         id="about"
-        className="relative min-h-[165px] overflow-hidden bg-[#202020] px-7 py-7 text-white sm:px-12"
+        className="relative min-h-[165px] overflow-hidden bg-[#202020] px-7 py-7 text-white sm:px-12 md:px-30"
       >
         <div className="pointer-events-none absolute -right-8 -top-24 select-none text-[220px] font-black italic text-black/70 sm:text-[300px]">
-          R
+          r
         </div>
 
         <div className="relative z-10 max-w-[650px]">
@@ -444,7 +444,7 @@ const Hero = () => {
             <FaArrowRight className="text-[9px]" />
           </a>
         </div>
-      </section>
+      </section> */}
 
       {/* SKILLS */}
       {/* <section
