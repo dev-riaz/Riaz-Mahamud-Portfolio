@@ -52,7 +52,9 @@ const SocialLink = ({ href, label, icon, variants }) => {
       rel="noopener noreferrer"
       aria-label={label}
       variants={variants}
-      className="flex h-9 w-9 items-center justify-center bg-[#c5c5c5] text-xl text-black shadow-md transition hover:-translate-y-1 hover:bg-black hover:text-white rounded-2xl"
+      //   className="flex h-9 w-9 items-center justify-center bg-[#c5c5c5] text-xl text-black shadow-md transition hover:-translate-y-1 hover:bg-black hover:text-white rounded-2xl"
+      // >
+      className="shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-3 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
     >
       {icon}
     </motion.a>
@@ -118,6 +120,7 @@ const socialItem = {
 
 const Hero = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("#home");
 
   const navLinks = [
     { label: "About me", href: "#about" },
@@ -126,12 +129,12 @@ const Hero = () => {
   ];
 
   return (
-    <main className="min-h-screen overflow-x-hidden  bg-black text-white">
+    <main className="min-h-screen overflow-hidden bg-black text-white">
       {/* HERO */}
-      <section className="relative min-h-[600px] bg-[#303744] lg:h-[543px] lg:min-h-0">
+      <section className="relative min-h-[600px] bg-[#1b2433] lg:h-[543px] lg:min-h-0">
         {/* DESKTOP LEFT PANEL */}
         <div
-          className="absolute inset-y-0 left-0 z-10 hidden w-[52%] bg-[#d6d6d6] lg:block"
+          className="absolute inset-y-0 left-0 z-10 hidden w-[52%] bg-[#e5e5e5] lg:block"
           style={{
             clipPath: "polygon(0 0, 100% 0, 82% 100%, 0 100%)",
           }}
@@ -142,12 +145,12 @@ const Hero = () => {
           variants={fadeIn}
           initial="hidden"
           animate="visible"
-          className="absolute inset-y-0 left-20 z-20 hidden w-[40%] py-8 text-black lg:flex lg:flex-col xl:px-10 "
+          className="absolute inset-y-0 left-20 z-20 hidden w-[40%] py-8 text-[#1b2433] lg:flex lg:flex-col xl:px-10 "
         >
           <Link
             href="/"
             aria-label="Home"
-            className="w-fit text-3xl transition hover:scale-110"
+            className="w-fit text-xl transition hover:scale-110 bg-[#e5e5e5] text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] px-3 py-2 rounded-2xl"
           >
             <FaCode />
           </Link>
@@ -210,7 +213,10 @@ const Hero = () => {
                 icon={<FaFacebook />}
               />
             </motion.div>
-             <button className="btn mt-10">Download Resume<FaArrowAltCircleDown /></button>
+            <button className="btn mt-10 flex shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-3 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4">
+              Download Resume
+              <FaArrowAltCircleDown />
+            </button>
           </div>
         </motion.div>
 
@@ -351,20 +357,26 @@ const Hero = () => {
         </div>
 
         {/* DESKTOP RIGHT PANEL */}
-        <div className="absolute inset-y-0 right-30  hidden w-[40%] bg-[#303744] lg:block ">
+        <div className="absolute inset-y-0 right-30  hidden w-[40%] bg-[#1b2433] lg:block overflow-hidden">
           {/* Navigation */}
+
           <motion.nav
             variants={navContainer}
             initial="hidden"
             animate="visible"
-            className="absolute right-[5%] top-8 z-30 flex items-center gap-7 xl:gap-10"
+            className="absolute right-[5%] top-8 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2.5 xl:gap-2"
           >
             {navLinks.map((item) => (
               <motion.a
                 variants={navItem}
                 key={item.href}
                 href={item.href}
-                className="whitespace-nowrap text-[15px] font-bold text-[#d6d6d6] transition hover:text-gray-400"
+                onClick={() => setActiveLink(item.href)}
+                className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
+                  activeLink === item.href
+                    ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                    : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                }`}
               >
                 {item.label}
               </motion.a>
@@ -373,14 +385,19 @@ const Hero = () => {
             <motion.a
               variants={navItem}
               href="#contact"
-              className="text-[15px] font-bold text-[#d6d6d6]  hover:text-gray-400"
+              onClick={() => setActiveLink("#contact")}
+              className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
+                activeLink === "#contact"
+                  ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                  : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+              }`}
             >
               Contact me
             </motion.a>
           </motion.nav>
 
           {/* Desktop Profile Image */}
-          <Parallax className="absolute inset-0 flex items-end justify-center pt-16">
+          <Parallax className="absolute inset-0 flex items-end justify-center overflow-hidden pt-6">
             <motion.div
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
@@ -389,7 +406,7 @@ const Hero = () => {
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex h-full items-end justify-center "
+              className="flex h-full w-full items-end justify-center overflow-hidden"
             >
               <Image
                 src="/portfolio_image__2_.png"
@@ -398,7 +415,7 @@ const Hero = () => {
                 height={800}
                 priority
                 sizes="(min-width: 1280px) 40vw, 45vw"
-                className="h-[88%] max-h-none w-auto max-w-[95%] object-contain object-bottom "
+                className="h-[88%] max-h-full w-auto max-w-[95%] object-contain object-bottom"
               />
             </motion.div>
           </Parallax>
