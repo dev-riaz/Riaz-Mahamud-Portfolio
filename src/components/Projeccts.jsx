@@ -44,12 +44,12 @@ export default function Projects() {
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
-        <h2 className="mb-12 text-center text-xl font-bold text-white sm:text-2xl">
-          My <span className="text-[#e5e5e5]">Portfolio</span>
+        <h2 className="mb-12 text-xl font-bold text-white sm:text-2xl md:text-4xl">
+          My <span className="text-[#e5e5e5]">Projects</span>
         </h2>
 
         {/* Project Cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] p-6">
           {projects.map((project, index) => (
             <a
               key={project.title}

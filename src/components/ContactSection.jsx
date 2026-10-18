@@ -79,7 +79,7 @@ export default function Contact() {
       id="contact"
       className="bg-[#1b2433] px-5 py-12 text-[#e5e5e5] sm:px-8 sm:py-14"
     >
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl p-4 border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]">
         {/* Heading */}
         <h2 className="mb-10 text-center text-xl font-bold">
           Contact <span className="text-cyan-400">Me</span>
@@ -152,7 +152,7 @@ export default function Contact() {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="h-8 min-w-0 rounded-md border border-transparent bg-[#222831] px-3 text-[10px] text-white outline-none transition focus:border-cyan-400"
+                className="h-8 min-w-0 rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
               />
 
               <input
@@ -163,7 +163,7 @@ export default function Contact() {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="h-8 min-w-0 rounded-md border border-transparent bg-[#222831] px-3 text-[10px] text-white outline-none transition focus:border-cyan-400"
+                className="h-8 min-w-0 rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
               />
             </div>
 
@@ -176,7 +176,7 @@ export default function Contact() {
                 aria-label="Phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="h-8 min-w-0 rounded-md border border-transparent bg-[#222831] px-3 text-[10px] text-white outline-none transition focus:border-cyan-400"
+                className="h-8 min-w-0 rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
               />
 
               <input
@@ -187,7 +187,7 @@ export default function Contact() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="h-8 min-w-0 rounded-md border border-transparent bg-[#222831] px-3 text-[10px] text-white outline-none transition focus:border-cyan-400"
+                className="h-8 min-w-0 rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
               />
             </div>
 
@@ -200,7 +200,7 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="h-8 w-full rounded-md border border-transparent bg-[#222831] px-3 text-[10px] text-white outline-none transition focus:border-cyan-400"
+              className="h-8 w-full rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
             />
 
             {/* Message */}
@@ -212,13 +212,13 @@ export default function Contact() {
               onChange={handleChange}
               required
               rows={4}
-              className="min-h-[52px] w-full resize-y rounded-md border border-transparent bg-[#222831] px-3 py-2 text-[10px] text-white outline-none transition focus:border-cyan-400"
+              className="min-h-[52px] w-full resize-y rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
             />
 
             {/* Submit */}
             <button
               type="submit"
-              className="h-8 w-full rounded-md bg-[#222831] text-[10px] font-medium text-white transition duration-300 hover:bg-cyan-400 hover:text-[#222831]"
+              className="h-8 w-full rounded-md border px-3 text-[10px] outline-none transition border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
             >
               Submit
             </button>

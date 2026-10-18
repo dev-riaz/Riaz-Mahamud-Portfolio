@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   FaGraduationCap,
   FaBookOpen,
@@ -100,13 +101,13 @@ const qualifications = [
     items: [
       {
         title: "Complete Web Development Course",
-        subtitle: "Programming Hero- 2025",
-        date: "Web Development",
+        subtitle: "Programming Hero Batch-13",
+        date: "2026",
       },
       {
         title: "Web Design & Development for Freelancing",
         subtitle: "NSDA · Level 3",
-        date: "",
+        date: "2026",
       },
     ],
   },
@@ -133,12 +134,13 @@ const qualifications = [
       {
         title: "Complete Web Development Course",
         subtitle: "Programming Hero",
-        date: "",
+        date: "2026",
+        Link: "https://drive.google.com/file/d/1H0UN_OlJp3dPZrbnkI5nUIdpku32o5z7/view?usp=sharing",
       },
       {
         title: "Web Design & Development for Freelancing",
         subtitle: "NSDA · Level 3",
-        date: "",
+        date: "2026",
       },
     ],
   },
@@ -154,7 +156,7 @@ export default function About() {
       <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-[#e5e5e5]/[0.03] blur-3xl" />
       <div className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-blue-400/[0.04] blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-5xl pt-6">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -205,7 +207,8 @@ export default function About() {
                   ease: "easeOut",
                 }}
                 whileHover={{ y: -5 }}
-                className="group relative rounded-2xl border border-slate-500/60 bg-[#1b2433]/80 p-5 transition-colors duration-300 hover:border-slate-300/70 hover:bg-[#202d40]"
+                className="group relative rounded-2xl p-5
+                   border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
               >
                 {/* Icon and number */}
                 <div className="mb-4 flex items-center justify-between">
@@ -268,25 +271,12 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-
-                {/* Bottom tag */}
-                {card.number === "02" && (
-                  <span className="mt-4 inline-flex rounded-full bg-slate-300 px-3 py-1 text-[11px] font-semibold text-[#1b2433]">
-                    Short Course
-                  </span>
-                )}
-
-                {card.number === "04" && (
-                  <span className="mt-4 inline-flex rounded-full border border-slate-500 px-3 py-1 text-[11px] text-slate-300">
-                    Add certificate status
-                  </span>
-                )}
               </motion.article>
             );
           })}
         </div>
 
-        {/* Footer */}
+        {/* Footer
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -311,7 +301,7 @@ export default function About() {
               />
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

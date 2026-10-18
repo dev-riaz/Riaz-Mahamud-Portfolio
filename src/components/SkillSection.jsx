@@ -117,7 +117,7 @@ function SkillCard({ group, index }) {
     <motion.div
       variants={itemVariants}
       whileHover={{ y: -6 }}
-      className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.07] sm:p-6"
+      className="group rounded-2xl p-5 border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
     >
       <div className="mb-6 flex items-start gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.07]">
@@ -168,20 +168,20 @@ export default function SkillSection() {
   return (
     <section
       id="skills"
-      className="relative overflow-hidden px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28"
+      className="relative overflow-hidden px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-20"
       style={{ backgroundColor: BG, color: TEXT }}
     >
       <div className="pointer-events-none absolute -right-32 top-20 h-72 w-72 rounded-full bg-white/[0.04] blur-3xl" />
       <div className="pointer-events-none absolute -left-32 bottom-10 h-72 w-72 rounded-full bg-white/[0.04] blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-5xl">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.65 }}
-          className="mb-14 text-center sm:mb-16"
+          className="mb-14  sm:mb-16"
         >
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2">
             <FaCode className="text-sm" />
@@ -190,16 +190,16 @@ export default function SkillSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Skills & <span className="text-white/50">Technologies</span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-3xl md:text-5xl">
+            Skills & <span className="text-slate-400">Technologies</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/55 sm:text-base">
+          <p className="mx-auto mt-5  text-sm leading-7 text-white/55 sm:text-base">
             The technologies and tools I use to build responsive, accessible,
             and user-friendly web applications.
           </p>
 
-          <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-white/70" />
+          {/* <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-white/70" /> */}
         </motion.div>
 
         {/* Technology icons */}
@@ -218,7 +218,7 @@ export default function SkillSection() {
                 key={tech.name}
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.02 }}
-                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-4 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.08]"
+                className="flex items-center gap-3 rounded-xl border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] p-4"
               >
                 <TechIcon
                   className="shrink-0 text-2xl"
@@ -238,7 +238,7 @@ export default function SkillSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.6 }}
-          className="mb-10 grid gap-6 rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 md:grid-cols-[1.3fr_1fr] md:items-center lg:p-10"
+          className="mb-10 grid md:grid-cols-[1.3fr_1fr] md:items-center gap-6 rounded-2xl p-6 sm:p-8 lg:p-10 border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]"
         >
           <div>
             <div className="mb-4 flex items-center gap-2 text-sm text-white/60">
@@ -246,12 +246,12 @@ export default function SkillSection() {
               <span>MY TECHNICAL JOURNEY</span>
             </div>
 
-            <h3 className="text-2xl font-semibold leading-snug sm:text-3xl">
+            <h3 className="text-2xl text-[#e2e8f0] font-semibold leading-snug sm:text-3xl">
               Turning ideas into
-              <span className="text-white/50"> digital experiences.</span>
+              <span className="text-[#e2e8f0]"> digital experiences.</span>
             </h3>
 
-            <p className="mt-4 max-w-xl text-sm leading-7 text-white/55 sm:text-base">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-[#e2e8f0cf] sm:text-base">
               I enjoy developing modern web applications with React, Next.js,
               Node.js, Express.js, and MongoDB. I focus on responsive layouts,
               clean code, and practical user experiences while continuously
@@ -271,11 +271,12 @@ export default function SkillSection() {
               return (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-white/10 bg-black/10 p-4"
+                  // className="rounded-xl border border-white/10 bg-black/10 p-4"
+                  className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] rounded-xl p-4"
                 >
-                  <StatIcon className="mb-3 text-lg text-white/60" />
+                  <StatIcon className="mb-3 text-lg text-[#e2e8f0]" />
                   <p className="text-2xl font-bold">{item.value}</p>
-                  <p className="mt-1 text-xs text-white/45 sm:text-sm">
+                  <p className="mt-1 text-xs text-[#e2e8f0cf] sm:text-sm">
                     {item.label}
                   </p>
                 </div>
