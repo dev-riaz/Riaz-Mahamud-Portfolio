@@ -77,7 +77,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="border-x-[3px] border-t-4 border-sky-400 bg-[#303744] px-5 py-12 text-white sm:px-8 sm:py-14"
+      className="bg-[#1b2433] px-5 py-12 text-[#e5e5e5] sm:px-8 sm:py-14"
     >
       <div className="mx-auto max-w-3xl">
         {/* Heading */}
@@ -96,7 +96,7 @@ export default function Contact() {
 
               <span className="leading-tight">
                 <span className="block text-sm font-bold tracking-[3px]">
-                  RIEAD
+                  Riaz Mahamud
                 </span>
                 <span className="block text-[6px] tracking-[1.5px] text-gray-300">
                   WEB DEVELOPER

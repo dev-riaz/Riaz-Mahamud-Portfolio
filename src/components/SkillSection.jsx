@@ -298,7 +298,7 @@ export default function SkillSection() {
         </motion.div>
 
         {/* Footer */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -316,7 +316,7 @@ export default function SkillSection() {
             Explore My Projects
             <FaArrowRight />
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

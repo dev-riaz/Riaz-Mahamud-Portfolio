@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative border-t-2 border-l-2 border-cyan-400 bg-[#242a35] px-4 py-5">
+    <footer className="relative bg-[#242a35] px-4 py-5">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Copyright */}
         <p className="flex-1 text-center text-[10px] font-medium text-white">
