@@ -1,197 +1,317 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FaGraduationCap,
+  FaBookOpen,
+  FaCode,
+  FaCertificate,
+  FaCheckCircle,
+} from "react-icons/fa";
 
-const tabs = [
-  "Education Qualification",
-  "Short Course",
-  "Experience",
-  "Details",
-  "Certification",
+// const qualifications = [
+//   {
+//     number: "01",
+//     title: "Education Qualification",
+//     icon: FaGraduationCap,
+//     items: [
+//       {
+//         title: "Higher Secondary Certificate (HSC)",
+//         subtitle: "Completed",
+//         date: "2025",
+//       },
+//       {
+//         title: "Honours",
+//         subtitle: "1st Year Running",
+//         date: "Present",
+//       },
+//     ],
+//   },
+//   {
+//     number: "02",
+//     title: "Short Course Experience",
+//     icon: FaBookOpen,
+//     items: [
+//       {
+//         title: "Web Design & Development for Freelancing",
+//         subtitle: "NSDA · Level 3",
+//         date: "",
+//       },
+//     ],
+//     items: [
+//       {
+//         title: "Web Design & Development ",
+//         subtitle: "NSDA · Level 3",
+//         date: "",
+//       },
+//     ],
+//   },
+//   {
+//     number: "03",
+//     title: "Experience Details",
+//     icon: FaCode,
+//     items: [
+//       {
+//         title: "Personal Projects & Practical Development Experience",
+//         points: [
+//           "Frontend Development",
+//           "Full-Stack Projects",
+//           "Problem Solving & Learning",
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     number: "04",
+//     title: "Certification",
+//     icon: FaCertificate,
+//     items: [
+//       {
+//         title: "Web Design & Development for Freelancing",
+//         subtitle: "NSDA · Level 3",
+//         date: "",
+//       },
+//     ],
+//   },
+// ];
+
+const qualifications = [
+  {
+    number: "01",
+    title: "Education Qualification",
+    icon: FaGraduationCap,
+    items: [
+      {
+        title: "Higher Secondary Certificate (HSC)",
+        subtitle: "Completed",
+        date: "2025",
+      },
+      {
+        title: "Honours",
+        subtitle: "1st Year Running",
+        date: "Present",
+      },
+    ],
+  },
+  {
+    number: "02",
+    title: "Short Course Experience",
+    icon: FaBookOpen,
+    items: [
+      {
+        title: "Complete Web Development Course",
+        subtitle: "Programming Hero- 2025",
+        date: "Web Development",
+      },
+      {
+        title: "Web Design & Development for Freelancing",
+        subtitle: "NSDA · Level 3",
+        date: "",
+      },
+    ],
+  },
+  {
+    number: "03",
+    title: "Experience Details",
+    icon: FaCode,
+    items: [
+      {
+        title: "Personal Projects & Practical Development Experience",
+        points: [
+          "Frontend Development",
+          "Full-Stack Projects",
+          "Problem Solving & Learning",
+        ],
+      },
+    ],
+  },
+  {
+    number: "04",
+    title: "Certification",
+    icon: FaCertificate,
+    items: [
+      {
+        title: "Complete Web Development Course",
+        subtitle: "Programming Hero",
+        date: "",
+      },
+      {
+        title: "Web Design & Development for Freelancing",
+        subtitle: "NSDA · Level 3",
+        date: "",
+      },
+    ],
+  },
 ];
 
-const education = [
-  {
-    title: "Bachelor of Honours",
-    institute: "Carmichael College",
-    session: "2025 - 26",
-    result: "Running (1st Year)",
-  },
-  {
-    title: "Higher Secondary Certificate",
-    institute: "Kurigram Govment College",
-    session: "2023 - 24",
-    result: "GPA 4.00 out of 5.00",
-  },
-  {
-    title: "Secondary School Certificate (SSC)",
-    institute: "Baralai High School",
-    session: "2022 - 23",
-    result: "GPA 5.00 out of 5.00",
-  },
-];
-
-export default function AboutSection() {
-  const [activeTab, setActiveTab] = useState("Education Qualification");
-
+export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen -mt-4 bg-[#303744] px-5 py-16 text-white md:px-10 md:py-16"
+      className="relative overflow-hidden bg-[#1b2433] px-5 py-16 text-[#e5e5e5] sm:px-8 lg:px-12 lg:py-20"
     >
-      <div className="">
-        {/* Section Title */}
-        <h2 className="mb-10 text-center text-xl font-bold">
-          About <span className="text-cyan-400">Me</span>
-        </h2>
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-[#e5e5e5]/[0.03] blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-blue-400/[0.04] blur-3xl" />
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 items-start gap-10 md:grid-cols-[240px_minmax(0,1fr)] md:gap-10 ">
-          {/* Profile Card */}
-          <div className="relative mx-auto mt-12 w-full h-full rounded-md bg-cyan-400 px-3 pb-5 pt-[68px] text-center text-black md:mx-0">
-            {/* Profile Image */}
-            <div className="absolute -top-[94px] left-1/2 h-[180px] w-[180px] -translate-x-1/2 overflow-hidden rounded-full border-[5px] border-white bg-white ring-4 ring-[#303744]">
-              <Image
-                width={200}
-                height={200}
-                src="/portfolio short image.png"
-                alt="Profile"
-                className="h-fit w-full  object-top"
-              />
+      <div className="relative mx-auto max-w-7xl">
+        {/* Section heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-start"
+        >
+          <div>
+            <div className="mb-3 flex items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#e5e5e5]/75">
+                About Me
+              </span>
+              <span className="h-px w-12 bg-[#e5e5e5]/50" />
             </div>
 
-            <h3 className="mt-10 whitespace-nowrap text-[15px] font-bold">
-              Riaz Mahamud
-            </h3>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              My Journey &{" "}
+              <span className="text-slate-400">Qualifications</span>
+            </h2>
 
-            <div className="mt-1.5 space-y-1 text-[10px] font-medium">
-              <p>Frontend Developer</p>
-              <p>Jr.Fullstack Developer</p>
-              <p>MERN Stack Developer</p>
-            </div>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:text-base">
+              Here&apos;s a quick overview of my education, skills, learning
+              journey and professional experience.
+            </p>
           </div>
 
-          {/* Information Section */}
-          <div className="min-w-0">
-            {/* Tabs */}
-            <div className="mb-6 flex flex-wrap gap-x-7 gap-y-4">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`relative whitespace-nowrap pb-1 text-[10px] font-bold transition-colors duration-300 ${
-                    activeTab === tab
-                      ? "text-cyan-400 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-cyan-400"
-                      : "text-white hover:text-cyan-300"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+          <div className="flex w-fit items-center gap-2 rounded-full border border-slate-500/50 px-4 py-2 text-xs text-slate-300">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-slate-200" />
+            Open to new opportunities
+          </div>
+        </motion.div>
 
-            {/* Tab Content */}
-            <div className="min-h-[210px]">
-              {activeTab === "Education Qualification" && (
+        {/* Qualification cards */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {qualifications.map((card, index) => {
+            const Icon = card.icon;
+
+            return (
+              <motion.article
+                key={card.number}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.12,
+                  ease: "easeOut",
+                }}
+                whileHover={{ y: -5 }}
+                className="group relative rounded-2xl border border-slate-500/60 bg-[#1b2433]/80 p-5 transition-colors duration-300 hover:border-slate-300/70 hover:bg-[#202d40]"
+              >
+                {/* Icon and number */}
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e5e5e5] text-[#1b2433] shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <Icon size={21} />
+                  </div>
+
+                  <span className="text-sm font-semibold text-slate-400">
+                    {card.number}
+                  </span>
+                </div>
+
+                {/* Card title */}
+                <h3 className="min-h-7 text-base font-bold leading-6 tracking-tight">
+                  {card.title}
+                </h3>
+
+                <div className="my-3 h-px bg-slate-500/60 transition-colors group-hover:bg-slate-300/60" />
+
+                {/* Card content */}
                 <div className="space-y-4">
-                  {education.map((item) => (
-                    <div key={item.title}>
-                      <h3 className="mb-1 text-[11px] font-bold text-cyan-400">
-                        {item.title}
-                      </h3>
+                  {card.items.map((item, itemIndex) => (
+                    <div key={item.title} className="relative pl-5">
+                      {/* Timeline marker */}
+                      <span className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-slate-300 bg-[#1b2433] shadow-[0_0_8px_rgba(226,232,240,0.35)]" />
 
-                      <div className="space-y-0.5 text-[9px] leading-[1.5] text-white">
-                        <p>
-                          <span className="font-medium">Institute :</span>{" "}
-                          {item.institute}
+                      {itemIndex < card.items.length - 1 && (
+                        <span className="absolute bottom-[-18px] left-[4px] top-4 w-px bg-slate-500/70" />
+                      )}
+
+                      <h4 className="text-sm font-semibold leading-5 text-slate-100">
+                        {item.title}
+                      </h4>
+
+                      {item.subtitle && (
+                        <p className="mt-1.5 text-xs leading-5 text-slate-400">
+                          {item.subtitle}
                         </p>
-                        <p>
-                          <span className="font-medium">Session :</span>{" "}
-                          {item.session}
+                      )}
+
+                      {item.date && (
+                        <p className="mt-1.5 text-xs text-slate-400">
+                          {item.date}
                         </p>
-                        <p>
-                          <span className="font-medium">Result :</span>{" "}
-                          {item.result}
-                        </p>
-                      </div>
+                      )}
+
+                      {item.points && (
+                        <ul className="mt-2 space-y-2">
+                          {item.points.map((point) => (
+                            <li
+                              key={point}
+                              className="flex items-start gap-2 text-xs leading-5 text-slate-300"
+                            >
+                              <FaCheckCircle className="mt-1 shrink-0 text-slate-300" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   ))}
                 </div>
-              )}
 
-              {activeTab === "Short Course" && (
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-[11px] font-bold text-cyan-400">
-                      Web Development
-                    </h3>
-                    <p className="mt-1 text-[9px]">Programming Hero</p>
-                    <p className="text-[9px]">Course: Web Development 25</p>
-                  </div>
+                {/* Bottom tag */}
+                {card.number === "02" && (
+                  <span className="mt-4 inline-flex rounded-full bg-slate-300 px-3 py-1 text-[11px] font-semibold text-[#1b2433]">
+                    Short Course
+                  </span>
+                )}
 
-                  <div>
-                    <h3 className="text-[11px] font-bold text-cyan-400">
-                      Full Stack Development
-                    </h3>
-                    <p className="mt-1 text-[9px]">
-                      React, Next.js, Node.js, Express.js
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "Experience" && (
-                <div>
-                  <h3 className="text-[11px] font-bold text-cyan-400">
-                    Personal Projects
-                  </h3>
-                  <p className="mt-1 text-[9px] leading-5">
-                    Developing responsive web applications using React, Next.js,
-                    Tailwind CSS, Node.js and MongoDB.
-                  </p>
-                  <p>A Recipe Shearing Platform (Recipe Hub)</p>
-                  <p>Doctor Appoinment Platform (DocPoint)</p>
-                </div>
-              )}
-
-              {activeTab === "Details" && (
-                <div className="space-y-2 text-[10px]">
-                  <p>
-                    <span className="font-bold text-cyan-400">Name :</span> MD
-                    Riaz Mahamud
-                  </p>
-                  <p>
-                    <span className="font-bold text-cyan-400">
-                      Profession :
-                    </span>{" "}
-                    Web Developer
-                  </p>
-                  <p>
-                    <span className="font-bold text-cyan-400">Skills :</span>{" "}
-                    React, Next.js, Node.js, Express.js, MongoDB
-                  </p>
-                </div>
-              )}
-              {activeTab === "Certification" && (
-                <div className="space-y-2 text-[10px]">
-                  <p>
-                    <span className="font-bold text-cyan-400">Certified :</span>
-                    Complete Web Development Course Programming Hero 2026
-                  </p>
-                  <Link href={"/"}>View Certificate</Link>
-
-                  <p>
-                    <span className="font-bold text-cyan-400">Certified :</span>{" "}
-                    National Skills Certificate (NSDA) Web Design & Development
-                    for Freelancing (Level 3)
-                  </p>
-                  <Link href={"/"}>View Certificate</Link>
-                </div>
-              )}
-            </div>
-          </div>
+                {card.number === "04" && (
+                  <span className="mt-4 inline-flex rounded-full border border-slate-500 px-3 py-1 text-[11px] text-slate-300">
+                    Add certificate status
+                  </span>
+                )}
+              </motion.article>
+            );
+          })}
         </div>
+
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-500/30 pt-5"
+        >
+          <div className="flex items-center gap-3">
+            <span className="h-px w-10 bg-slate-400" />
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+              Always Learning&nbsp; / &nbsp;Always Growing
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {[0, 1, 2, 3].map((dot) => (
+              <span
+                key={dot}
+                className={`h-1.5 rounded-full ${
+                  dot === 0 ? "w-6 bg-[#e5e5e5]" : "w-4 bg-slate-500/60"
+                }`}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

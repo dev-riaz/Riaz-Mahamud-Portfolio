@@ -17,6 +17,11 @@ import {
 } from "react-icons/fa";
 import { Parallax } from "./ScrollAnimations";
 
+import { FaReact, FaNodeJs, FaLeaf } from "react-icons/fa";
+import { SiNextdotjs } from "react-icons/si";
+// import { FaReact, FaNodeJs } from "react-icons/fa";
+import { SiMongodb } from "react-icons/si";
+
 // navContent
 const navContainer = {
   hidden: {},
@@ -52,8 +57,6 @@ const SocialLink = ({ href, label, icon, variants }) => {
       rel="noopener noreferrer"
       aria-label={label}
       variants={variants}
-      //   className="flex h-9 w-9 items-center justify-center bg-[#c5c5c5] text-xl text-black shadow-md transition hover:-translate-y-1 hover:bg-black hover:text-white rounded-2xl"
-      // >
       className="shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-3 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
     >
       {icon}
@@ -129,7 +132,7 @@ const Hero = () => {
   ];
 
   return (
-    <main className="min-h-screen overflow-hidden bg-black text-white">
+    <main className="min-h-screen overflow-hidden bg-[#1b2433] text-white">
       {/* HERO */}
       <section className="relative min-h-[600px] bg-[#1b2433] lg:h-[543px] lg:min-h-0">
         {/* DESKTOP LEFT PANEL */}
@@ -222,13 +225,13 @@ const Hero = () => {
 
         {/* MOBILE / TABLET LAYOUT */}
 
-        <div className="relative flex min-h-[600px] flex-col overflow-hidden bg-black lg:hidden sm:min-h-[650px]">
+        <div className="relative flex min-h-[600px] flex-col overflow-hidden bg-[#1b2433 bg-white lg:hidden sm:min-h-[650px]">
           {/* Mobile Header */}
           <header className="absolute inset-x-0 top-0 z-[60] flex items-center justify-between px-6 py-5">
             <Link
               href="/"
               aria-label="Home"
-              className="text-2xl text-white transition-transform duration-300 hover:scale-110"
+              className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] px-3 py-2 rounded-2xl text-xl"
             >
               <FaCode />
             </Link>
@@ -238,7 +241,7 @@ const Hero = () => {
               onClick={() => setMenuOpen((prev) => !prev)}
               aria-label={menuOpen ? "Close navigation" : "Open navigation"}
               aria-expanded={menuOpen}
-              className="flex h-10 w-10 items-center justify-center text-2xl text-white transition-transform duration-300 hover:scale-110"
+              className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] px-3 py-2 rounded-2xl text-xl"
             >
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -246,7 +249,7 @@ const Hero = () => {
 
           {/* Black Profile Area */}
           <div
-            className="absolute inset-0 bg-black"
+            className="absolute inset-0 bg-[#1b2433]"
             style={{
               clipPath: "polygon(25% 0, 100% 0, 100% 100%, 0 100%, 0 12%)",
             }}
@@ -281,33 +284,33 @@ const Hero = () => {
           </nav>
 
           {/* Mobile Profile Image */}
-          <div className="absolute inset-0 flex items-end justify-center">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#1b2433]">
             <Image
-              src="/portfolio image (2).png"
+              src="/portfolio_image__2_.png"
               alt="Riaz Mahamud"
               width={520}
-              height={650}
+              height={550}
               priority
               sizes="(max-width: 639px) 85vw, 520px"
-              className="h-full w-full object-contain object-bottom transition-transform duration-500"
+              className="h-[400px] w-[400px] object-cover transition-transform duration-500 bg-[#1b2433] "
             />
           </div>
 
           {/* Mobile Introduction */}
           <div
-            className="absolute inset-x-0 bottom-0 z-20 flex min-h-[122px] items-end justify-between gap-3 bg-[#686868]/50 px-5 py-6 text-white"
+            className="absolute inset-x-0 bottom-0 z-20 flex min-h-[122px] items-end justify-between gap-3 bg-[#e5e5e5] px-8 py-4 text-[#272727]"
             style={{
               clipPath: "polygon(0 28%, 100% 0, 100% 100%, 0 100%)",
             }}
           >
-            <div className="min-w-0 pb-0.5">
+            <div className="min-w-0 pb-10 ">
               <p className="mb-0.5 text-xl font-bold">Hi, I am</p>
 
               <h1 className="text-2xl font-bold leading-tight tracking-tight">
                 Riaz Mahamud
               </h1>
 
-              <p className="mt-0.5 text-[12px] font-medium font-bold">
+              <p className="mt-0.5 text-[12px] font-medium font-bold text-[#888888]">
                 Jr.Fullstack Developer / MERN Stack Developer
               </p>
             </div>
@@ -319,7 +322,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Email"
-                className="transition-transform duration-200 hover:scale-125"
+                className="items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-2 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
               >
                 <FaAt className="text-xl" />
               </a>
@@ -329,7 +332,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="transition-transform duration-200 hover:scale-125"
+                className="shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-2 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
               >
                 <FaGithub className="text-xl" />
               </a>
@@ -339,7 +342,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="transition-transform duration-200 hover:scale-125"
+                className="shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-2 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
               >
                 <FaLinkedinIn className="text-xl" />
               </a>
@@ -348,7 +351,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="transition-transform duration-200 hover:scale-125"
+                className="shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-2 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4"
               >
                 <FaFacebook className="text-xl" />
               </a>
@@ -357,14 +360,20 @@ const Hero = () => {
         </div>
 
         {/* DESKTOP RIGHT PANEL */}
-        <div className="absolute inset-y-0 right-30  hidden w-[40%] bg-[#1b2433] lg:block overflow-hidden">
-          {/* Navigation */}
 
+        {/* <div className="absolute inset-y-0 right-0 hidden w-[60%] overflow-hidden bg-[#1b2433] lg:block">
+          Decorative Background
+          <div className="absolute left-1/2 top-[55%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-400/10 bg-gradient-to-br from-slate-400/15 to-transparent shadow-[0_0_80px_rgba(148,163,184,0.08)] xl:h-[390px] xl:w-[390px]" />
+          <p className="bg-amber-200 block bottom-3">hi<FaReact></FaReact></p>
+
+          <div className="absolute left-1/2 top-[55%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300/[0.04] xl:h-[330px] xl:w-[330px]" />
+
+          Navigation
           <motion.nav
             variants={navContainer}
             initial="hidden"
             animate="visible"
-            className="absolute right-[5%] top-8 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2.5 xl:gap-2"
+            className="absolute right-[20%] top-7 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2 xl:gap-2"
           >
             {navLinks.map((item) => (
               <motion.a
@@ -396,38 +405,322 @@ const Hero = () => {
             </motion.a>
           </motion.nav>
 
-          {/* Desktop Profile Image */}
-          <Parallax className="absolute inset-0 flex items-end justify-center overflow-hidden pt-6">
+          Floating Technology Icons
+          <div className="absolute left-[17%] top-[35%] z-20 flex flex-col gap-3">
+            {[
+              { icon: FaReact, color: "text-sky-400" },
+              { icon: SiNextdotjs, color: "text-white" },
+              { icon: FaNodeJs, color: "text-green-400" },
+              { icon: FaLeaf, color: "text-emerald-400" },
+            ].map(({ icon: Icon, color }, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0, y: [0, -5, 0] }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 0.5 + index * 0.15 },
+                  x: { duration: 0.6, delay: 0.5 + index * 0.15 },
+                  y: {
+                    duration: 3 + index * 0.4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-500/30 bg-[#202d40] shadow-lg xl:h-14 xl:w-14"
+              >
+                <Icon className={`text-2xl ${color}`} />
+              </motion.div>
+            ))}
+          </div>
+
+          Profile Image
+          <Parallax className="absolute inset-0 z-10 flex items-end justify-center overflow-hidden pt-24">
             <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 100, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 2,
-                delay: 0.4,
+                duration: 1.5,
+                delay: 0.3,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="flex h-full w-full items-end justify-center overflow-hidden"
             >
               <Image
                 src="/portfolio_image__2_.png"
-                alt="Riaz Mahamud - Frontend Developer"
+                alt="Riaz Mahamud - Full Stack Developer"
                 width={650}
                 height={800}
                 priority
-                sizes="(min-width: 1280px) 40vw, 45vw"
-                className="h-[88%] max-h-full w-auto max-w-[95%] object-contain object-bottom"
+                sizes="40vw"
+                className="h-[78%] max-h-[620px] w-auto max-w-[90%] object-contain object-bottom xl:h-[84%]"
               />
             </motion.div>
           </Parallax>
 
-          {/* Image Caption */}
-          {/* <p className="absolute bottom-2 right-[21%] z-20 text-[8px] leading-[10px] text-white">
-            This is my profile photo,
-            <br />
-            but I clearly hope to
-            <br />
-            get one just like this
-          </p> */}
+          Handwritten Style Slogan
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="absolute right-[7%] top-[37%] z-20 rotate-[-8deg] text-slate-300"
+          >
+            <p className="font-serif text-lg italic leading-7 xl:text-xl">
+              Let&apos;s
+              <br />
+              Build
+              <br />
+              Something
+              <br />
+              Great
+            </p>
+
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 65 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+              className="mt-3 h-px rotate-[-15deg] bg-slate-300"
+            />
+          </motion.div>
+
+          Side Label
+          <div className="absolute right-[2%] top-[48%] z-20 hidden [writing-mode:vertical-rl] text-[9px] font-semibold tracking-[0.35em] text-slate-400 xl:block">
+            FULL STACK DEVELOPER
+          </div>
+
+          Bottom Scroll Indicator
+          <motion.a
+            href="#about"
+            aria-label="Scroll to About section"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-8 right-[6%] z-30 flex h-10 w-10 items-center justify-center rounded-full border border-slate-500/60 text-slate-300 transition hover:bg-slate-300 hover:text-[#1b2433]"
+          >
+            ↓
+          </motion.a>
+        </div> */}
+
+        <div className="absolute inset-y-0 right-0 hidden w-[60%] overflow-hidden bg-[#1b2433] lg:block">
+          {/* Decorative Background */}
+          <div className="absolute left-1/2 top-[55%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-400/10 bg-gradient-to-br from-slate-400/15 to-transparent shadow-[0_0_80px_rgba(148,163,184,0.08)] xl:h-[390px] xl:w-[390px]" />
+
+          <div className="absolute left-1/2 top-[55%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300/[0.04] xl:h-[330px] xl:w-[330px]" />
+
+          {/* Navigation */}
+          <motion.nav
+            variants={navContainer}
+            initial="hidden"
+            animate="visible"
+            className="absolute right-[20%] top-7 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2 xl:gap-2"
+          >
+            {navLinks.map((item) => (
+              <motion.a
+                variants={navItem}
+                key={item.href}
+                href={item.href}
+                onClick={() => setActiveLink(item.href)}
+                className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
+                  activeLink === item.href
+                    ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                    : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                }`}
+              >
+                {item.label}
+              </motion.a>
+            ))}
+
+            <motion.a
+              variants={navItem}
+              href="#contact"
+              onClick={() => setActiveLink("#contact")}
+              className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
+                activeLink === "#contact"
+                  ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                  : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+              }`}
+            >
+              Contact me
+            </motion.a>
+          </motion.nav>
+
+          {/* Circular Technology Orbit */}
+          <div className="pointer-events-none absolute left-1/2 top-[55%] z-[5] aspect-square w-[340px] -translate-x-1/2 -translate-y-1/2 xl:w-[390px]">
+            {/* Main Orbit Ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 45,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 rounded-full border border-slate-300/25"
+            >
+              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-200 shadow-[0_0_12px_rgba(226,232,240,0.7)]" />
+            </motion.div>
+
+            {/* Inner Orbit Ring */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 60,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-[10%] rounded-full border border-slate-400/15"
+            >
+              <span className="absolute right-[10%] top-[12%] h-2 w-2 rounded-full bg-slate-300/70 " />
+            </motion.div>
+
+            {/* Orbit Glow */}
+            <div className="absolute inset-[20%] rounded-full bg-slate-300/[0.04] blur-2xl" />
+
+            {/* Technology Icons Orbit */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 45,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0"
+            >
+              {[
+                {
+                  Icon: FaReact,
+                  color: "text-sky-400",
+                  angle: 0,
+                },
+                {
+                  Icon: SiNextdotjs,
+                  color: "text-white",
+                  angle: 90,
+                },
+                {
+                  Icon: FaNodeJs,
+                  color: "text-green-400",
+                  angle: 180,
+                },
+                {
+                  Icon: SiMongodb,
+                  color: "text-emerald-400",
+                  angle: 270,
+                },
+              ].map(({ Icon, color, angle }, index) => {
+                const radius = 32;
+                const radians = (angle * Math.PI) / 180;
+
+                const targetX = Math.cos(radians) * radius;
+                const targetY = Math.sin(radians) * radius;
+
+                return (
+                  <motion.div
+                    key={angle}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.2,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      delay: 0.5 + index * 0.2,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="absolute flex h-[50px] w-[50px] items-center justify-center rounded-2xl border border-slate-500/30 bg-[#202d40] shadow-lg xl:h-14 xl:w-14"
+                    style={{
+                      left: `calc(50% + ${targetX}%)`,
+                      top: `calc(50% + ${targetY}%)`,
+                      marginLeft: "-25px",
+                      marginTop: "-25px",
+                    }}
+                  >
+                    {/* Keep Icons Upright */}
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{
+                        duration: 45,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="flex items-center justify-center"
+                    >
+                      <Icon className={`text-2xl ${color} xl:text-3xl`} />
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+
+          {/* Profile Image */}
+          <Parallax className="absolute inset-0 z-10 flex items-end justify-center overflow-hidden pt-24">
+            <motion.div
+              initial={{ opacity: 0, y: 100, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 1.5,
+                delay: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex h-full w-full items-end justify-center overflow-hidden"
+            >
+              <Image
+                src="/portfolio_image__2_.png"
+                alt="Riaz Mahamud - Full Stack Developer"
+                width={650}
+                height={800}
+                priority
+                sizes="40vw"
+                className="h-[78%] max-h-[620px] w-auto max-w-[90%] object-contain object-bottom xl:h-[84%]"
+              />
+            </motion.div>
+          </Parallax>
+
+          {/* Handwritten Style Slogan */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="absolute right-[7%] top-[37%] z-20 rotate-[-8deg] text-slate-300"
+          >
+            <p className="font-serif text-lg italic leading-7 xl:text-xl">
+              Let&apos;s
+              <br />
+              Build
+              <br />
+              Something
+              <br />
+              Great
+            </p>
+
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 65 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+              className="mt-3 h-px rotate-[-15deg] bg-slate-300"
+            />
+          </motion.div>
+
+          {/* Side Label */}
+          <div className="absolute right-[2%] top-[48%] z-20 hidden [writing-mode:vertical-rl] text-[9px] font-semibold tracking-[0.35em] text-slate-400 xl:block">
+            FULL STACK DEVELOPER
+          </div>
+
+          {/* Bottom Scroll Indicator */}
+          <motion.a
+            href="#about"
+            aria-label="Scroll to About section"
+            animate={{ y: [0, 6, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-8 right-[6%] z-30 flex h-10 w-10 items-center justify-center rounded-full border border-slate-500/60 text-slate-300 transition hover:bg-slate-300 hover:text-[#1b2433]"
+          >
+            ↓
+          </motion.a>
         </div>
       </section>
 
