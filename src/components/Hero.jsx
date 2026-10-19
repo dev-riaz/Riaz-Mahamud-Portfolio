@@ -3,24 +3,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Parallax } from "./ScrollAnimations";
 import {
   FaAt,
   FaGithub,
   FaLinkedinIn,
-  FaBars,
-  FaTimes,
-  FaArrowRight,
   FaCode,
   FaFacebook,
   FaArrowAltCircleDown,
+  FaUser,
+  FaCheckCircle,
 } from "react-icons/fa";
-import { Parallax } from "./ScrollAnimations";
 
 import { FaReact, FaNodeJs, FaLeaf } from "react-icons/fa";
 import { SiNextdotjs } from "react-icons/si";
-// import { FaReact, FaNodeJs } from "react-icons/fa";
 import { SiMongodb } from "react-icons/si";
+import { MdOutlineEmail } from "react-icons/md";
+import { TbHomeFilled } from "react-icons/tb";
+import { LuBlocks } from "react-icons/lu";
+import { ImSpinner2 } from "react-icons/im";
+import HeroTopText from "./HeroTopText";
 
 // navContent
 const navContainer = {
@@ -36,7 +39,7 @@ const navContainer = {
 const navItem = {
   hidden: {
     opacity: 0,
-    x: 35,
+    x: -35,
   },
   visible: {
     opacity: 1,
@@ -125,14 +128,62 @@ const Hero = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("#home");
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // navbar scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = ["home", "about", "skills", "projects", "contact"];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveLink(`#${entry.target.id}`);
+          }
+        });
+      },
+      {
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: 0,
+      },
+    );
+
+    sections.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // download button
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloaded, setIsDownloaded] = useState(false);
+
   const navLinks = [
-    { label: "About me", href: "#about" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#portfolio" },
+    { label: "Home", icon: <TbHomeFilled />, href: "#home" },
+    { label: "About me", icon: <FaUser />, href: "#about" },
+    { label: "Skills", icon: <FaCode />, href: "#skills" },
+    { label: "Projects", icon: <LuBlocks />, href: "#projects" },
   ];
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#1b2433] text-white">
+    <main
+      id="home"
+      className="min-h-screen overflow-hidden bg-[#1b2433] text-white"
+    >
       {/* HERO */}
       <section className="relative min-h-[600px] bg-[#1b2433] lg:h-[543px] lg:min-h-0">
         {/* DESKTOP LEFT PANEL */}
@@ -142,6 +193,77 @@ const Hero = () => {
             clipPath: "polygon(0 0, 100% 0, 82% 100%, 0 100%)",
           }}
         />
+        {/* navigation */}
+        <motion.nav
+          variants={navContainer}
+          initial="hidden"
+          animate="visible"
+          className="fixed left-4 top-1/2 z-50 hidden sm:hidden -translate-y-1/2 flex-col items-start gap-3 lg:flex xl:left-2"
+        >
+          {navLinks.map((item) => (
+            <motion.a
+              variants={navItem}
+              key={item.href}
+              href={item.href}
+              onClick={() => setActiveLink(item.href)}
+              className={`group relative flex h-12 w-12 font-bold items-center justify-center rounded-xl border transition-all duration-300 ${
+                isScrolled
+                  ? activeLink === item.href
+                    ? "border-[#1b2433] bg-[#1b2433] text-green-600 shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                    : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-green-600 hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                  : activeLink === item.href
+                    ? "border-white/80 bg-[#e5e5e5] text-[#272727] shadow-[inset_3px_3px_6px_#c7c7c7,inset_-2px_-2px_6px_#ffffff]"
+                    : "border-white/80 bg-[#e5e5e5] text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] hover:text-green-600 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff]"
+              }`}
+            >
+              {/* Icon */}
+              <span className="text-lg">{item.icon}</span>
+
+              {/* Hover Label */}
+              <span
+                className={`pointer-events-none absolute left-14 top-1/2 z-50 -translate-x-2 -translate-y-1/2 whitespace-nowrap rounded-lg px-4 py-2 text-xs font-bold opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ${
+                  isScrolled
+                    ? "bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]"
+                    : "bg-[#e5e5e5] text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff]"
+                }`}
+              >
+                {item.label}
+              </span>
+            </motion.a>
+          ))}
+
+          {/* Contact */}
+          <motion.a
+            variants={navItem}
+            href="#contact"
+            onClick={() => setActiveLink("#contact")}
+            className={`group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 ${
+              isScrolled
+                ? activeLink === "#contact"
+                  ? "border-[#1b2433] bg-[#1b2433] text-green-600 shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                  : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-green-600 hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                : activeLink === "#contact"
+                  ? "border-white/80 bg-[#e5e5e5] text-[#272727] shadow-[inset_3px_3px_6px_#c7c7c7,inset_-2px_-2px_6px_#ffffff]"
+                  : "border-white/80 bg-[#e5e5e5] text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] hover:text-green-600 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff]"
+            }`}
+          >
+            {/* Contact Icon */}
+            <span className="text-lg">
+              <MdOutlineEmail />
+            </span>
+
+            {/* Hover Label */}
+            <span
+              className={`pointer-events-none absolute left-14 top-1/2 z-50 -translate-x-2 -translate-y-1/2 whitespace-nowrap rounded-lg px-4 py-2 text-xs font-bold opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ${
+                isScrolled
+                  ? "bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]"
+                  : "bg-[#e5e5e5] text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff]"
+              }`}
+            >
+              Contact me
+            </span>
+          </motion.a>
+        </motion.nav>
 
         {/* DESKTOP LEFT CONTENT */}
         <motion.div
@@ -216,70 +338,99 @@ const Hero = () => {
                 icon={<FaFacebook />}
               />
             </motion.div>
-            <button className="btn mt-10 flex shrink-0 items-center whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-3 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] xl:px-4">
-              Download Resume
-              <FaArrowAltCircleDown />
+
+            <button
+              disabled={isDownloading}
+              onClick={() => {
+                if (isDownloading) return;
+
+                setIsDownloading(true);
+                setIsDownloaded(false);
+
+                const link = document.createElement("a");
+                link.href = "/Riaz Mahamud-fullStack.pdf";
+                link.download = "Riaz-Mahamud-CV.pdf";
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                setTimeout(() => {
+                  setIsDownloading(false);
+                  setIsDownloaded(true);
+
+                  setTimeout(() => {
+                    setIsDownloaded(false);
+                  }, 2000);
+                }, 1500);
+              }}
+              className="btn mt-10 flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-white/80 bg-[#e5e5e5] px-3 py-2 text-[15px] font-semibold text-[#272727] shadow-[3px_3px_6px_#c7c7c7,-2px_-2px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_2px_2px_5px_#c7c7c7,inset_-2px_-2px_5px_#ffffff] disabled:cursor-wait disabled:opacity-80 xl:px-4"
+            >
+              {isDownloading ? (
+                <>
+                  Downloading...
+                  <ImSpinner2 className="animate-spin text-lg" />
+                </>
+              ) : isDownloaded ? (
+                <>
+                  Downloaded!
+                  <FaCheckCircle className="text-green-600" />
+                </>
+              ) : (
+                <>
+                  Download Resume
+                  <FaArrowAltCircleDown className="transition-transform duration-300 group-hover:translate-y-1" />
+                </>
+              )}
             </button>
           </div>
         </motion.div>
 
         {/* MOBILE / TABLET LAYOUT */}
 
-        <div className="relative flex min-h-[600px] flex-col overflow-hidden bg-[#1b2433 bg-white lg:hidden sm:min-h-[650px]">
-          {/* Mobile Header */}
-          <header className="absolute inset-x-0 top-0 z-[60] flex items-center justify-between px-6 py-5">
-            <Link
-              href="/"
-              aria-label="Home"
-              className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] px-3 py-2 rounded-2xl text-xl"
-            >
-              <FaCode />
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => setMenuOpen((prev) => !prev)}
-              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-              aria-expanded={menuOpen}
-              className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] px-3 py-2 rounded-2xl text-xl"
-            >
-              {menuOpen ? <FaTimes /> : <FaBars />}
-            </button>
-          </header>
-
-          {/* Black Profile Area */}
-          <div
-            className="absolute inset-0 bg-[#1b2433]"
-            style={{
-              clipPath: "polygon(25% 0, 100% 0, 100% 100%, 0 100%, 0 12%)",
-            }}
-          />
-
+        <div className="relative flex min-h-[600px] flex-col overflow-hidden bg-[#1b2433] lg:hidden sm:min-h-[650px]">
           {/* Mobile Navigation */}
           <nav
-            className={`absolute right-1 top-0 z-50 flex flex-col justify-start  gap-5 bg-black/5 w-[120px] ml-auto pt-15 text-white transition-all duration-300 ${
-              menuOpen
-                ? "visible translate-y-0 opacity-100"
-                : "invisible -translate-y-3 opacity-0 pointer-events-none"
+            className={`fixed left-0 z-[60] flex w-full items-center justify-center gap-5 overflow-x-auto px-4 py-4 transition-all duration-500 sm:gap-4 sm:px-6 ${
+              isScrolled ? "bottom-0 top-auto" : "top-0 bottom-auto"
             }`}
           >
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-semibold transition-colors duration-200 hover:text-gray-400 w-full btn"
+                onClick={() => setActiveLink(item.href)}
+                aria-label={item.label}
+                className={`group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 ${
+                  activeLink === item.href
+                    ? "border-[#1b2433] bg-[#1b2433] text-cyan-400 shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                    : "border-transparent bg-[#1b2433] text-white shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-cyan-400 hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                }`}
               >
-                {item.label}
+                <span className="text-lg">{item.icon}</span>
+
+                {/* Hover effect */}
+                <span className="pointer-events-none absolute left-1/2 top-14 z-[70] -translate-x-1/2 -translate-y-2 whitespace-nowrap rounded-lg bg-[#1b2433] px-3 py-2 text-xs font-bold text-white opacity-0 shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                  {item.label}
+                </span>
               </a>
             ))}
 
+            {/* Contact */}
             <a
               href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm font-semibold transition-colors duration-200 hover:text-gray-400 btn w-full"
+              onClick={() => setActiveLink("#contact")}
+              aria-label="Contact me"
+              className={`group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 ${
+                activeLink === "#contact"
+                  ? "border-[#1b2433] bg-[#1b2433] text-cyan-400 shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
+                  : "border-transparent bg-[#1b2433] text-white shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-cyan-400 hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+              }`}
             >
-              Contact me
+              <MdOutlineEmail className="text-lg" />
+
+              <span className="pointer-events-none absolute left-1/2 top-14 z-[70] -translate-x-1/2 -translate-y-2 whitespace-nowrap rounded-lg bg-[#1b2433] px-3 py-2 text-xs font-bold text-white opacity-0 shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                Contact me
+              </span>
             </a>
           </nav>
 
@@ -361,186 +512,12 @@ const Hero = () => {
 
         {/* DESKTOP RIGHT PANEL */}
 
-        {/* <div className="absolute inset-y-0 right-0 hidden w-[60%] overflow-hidden bg-[#1b2433] lg:block">
-          Decorative Background
-          <div className="absolute left-1/2 top-[55%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-400/10 bg-gradient-to-br from-slate-400/15 to-transparent shadow-[0_0_80px_rgba(148,163,184,0.08)] xl:h-[390px] xl:w-[390px]" />
-          <p className="bg-amber-200 block bottom-3">hi<FaReact></FaReact></p>
-
-          <div className="absolute left-1/2 top-[55%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300/[0.04] xl:h-[330px] xl:w-[330px]" />
-
-          Navigation
-          <motion.nav
-            variants={navContainer}
-            initial="hidden"
-            animate="visible"
-            className="absolute right-[20%] top-7 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2 xl:gap-2"
-          >
-            {navLinks.map((item) => (
-              <motion.a
-                variants={navItem}
-                key={item.href}
-                href={item.href}
-                onClick={() => setActiveLink(item.href)}
-                className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
-                  activeLink === item.href
-                    ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
-                    : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
-                }`}
-              >
-                {item.label}
-              </motion.a>
-            ))}
-
-            <motion.a
-              variants={navItem}
-              href="#contact"
-              onClick={() => setActiveLink("#contact")}
-              className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
-                activeLink === "#contact"
-                  ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
-                  : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
-              }`}
-            >
-              Contact me
-            </motion.a>
-          </motion.nav>
-
-          Floating Technology Icons
-          <div className="absolute left-[17%] top-[35%] z-20 flex flex-col gap-3">
-            {[
-              { icon: FaReact, color: "text-sky-400" },
-              { icon: SiNextdotjs, color: "text-white" },
-              { icon: FaNodeJs, color: "text-green-400" },
-              { icon: FaLeaf, color: "text-emerald-400" },
-            ].map(({ icon: Icon, color }, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0, y: [0, -5, 0] }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.5 + index * 0.15 },
-                  x: { duration: 0.6, delay: 0.5 + index * 0.15 },
-                  y: {
-                    duration: 3 + index * 0.4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  },
-                }}
-                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-500/30 bg-[#202d40] shadow-lg xl:h-14 xl:w-14"
-              >
-                <Icon className={`text-2xl ${color}`} />
-              </motion.div>
-            ))}
-          </div>
-
-          Profile Image
-          <Parallax className="absolute inset-0 z-10 flex items-end justify-center overflow-hidden pt-24">
-            <motion.div
-              initial={{ opacity: 0, y: 100, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                duration: 1.5,
-                delay: 0.3,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="flex h-full w-full items-end justify-center overflow-hidden"
-            >
-              <Image
-                src="/portfolio_image__2_.png"
-                alt="Riaz Mahamud - Full Stack Developer"
-                width={650}
-                height={800}
-                priority
-                sizes="40vw"
-                className="h-[78%] max-h-[620px] w-auto max-w-[90%] object-contain object-bottom xl:h-[84%]"
-              />
-            </motion.div>
-          </Parallax>
-
-          Handwritten Style Slogan
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="absolute right-[7%] top-[37%] z-20 rotate-[-8deg] text-slate-300"
-          >
-            <p className="font-serif text-lg italic leading-7 xl:text-xl">
-              Let&apos;s
-              <br />
-              Build
-              <br />
-              Something
-              <br />
-              Great
-            </p>
-
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: 65 }}
-              transition={{ duration: 0.8, delay: 1.4 }}
-              className="mt-3 h-px rotate-[-15deg] bg-slate-300"
-            />
-          </motion.div>
-
-          Side Label
-          <div className="absolute right-[2%] top-[48%] z-20 hidden [writing-mode:vertical-rl] text-[9px] font-semibold tracking-[0.35em] text-slate-400 xl:block">
-            FULL STACK DEVELOPER
-          </div>
-
-          Bottom Scroll Indicator
-          <motion.a
-            href="#about"
-            aria-label="Scroll to About section"
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-8 right-[6%] z-30 flex h-10 w-10 items-center justify-center rounded-full border border-slate-500/60 text-slate-300 transition hover:bg-slate-300 hover:text-[#1b2433]"
-          >
-            ↓
-          </motion.a>
-        </div> */}
-
         <div className="absolute inset-y-0 right-0 hidden w-[60%] overflow-hidden bg-[#1b2433] lg:block">
           {/* Decorative Background */}
           <div className="absolute left-1/2 top-[55%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-400/10 bg-gradient-to-br from-slate-400/15 to-transparent shadow-[0_0_80px_rgba(148,163,184,0.08)] xl:h-[390px] xl:w-[390px]" />
 
           <div className="absolute left-1/2 top-[55%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300/[0.04] xl:h-[330px] xl:w-[330px]" />
-
-          {/* Navigation */}
-          <motion.nav
-            variants={navContainer}
-            initial="hidden"
-            animate="visible"
-            className="absolute right-[20%] top-7 z-30 flex items-center gap-1 rounded-2xl bg-[#1b2433] p-2 xl:gap-2"
-          >
-            {navLinks.map((item) => (
-              <motion.a
-                variants={navItem}
-                key={item.href}
-                href={item.href}
-                onClick={() => setActiveLink(item.href)}
-                className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
-                  activeLink === item.href
-                    ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
-                    : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
-                }`}
-              >
-                {item.label}
-              </motion.a>
-            ))}
-
-            <motion.a
-              variants={navItem}
-              href="#contact"
-              onClick={() => setActiveLink("#contact")}
-              className={`whitespace-nowrap rounded-xl border px-4 py-3 text-[13px] font-bold transition-all duration-300 ${
-                activeLink === "#contact"
-                  ? "border-[#1b2433] bg-[#1b2433] text-[#cbd5e1] shadow-[inset_5px_5px_10px_#101722,inset_-5px_-5px_10px_#263044]"
-                  : "border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
-              }`}
-            >
-              Contact me
-            </motion.a>
-          </motion.nav>
+          <HeroTopText />
 
           {/* Circular Technology Orbit */}
           <div className="pointer-events-none absolute left-1/2 top-[55%] z-[5] aspect-square w-[340px] -translate-x-1/2 -translate-y-1/2 xl:w-[390px]">
@@ -723,133 +700,8 @@ const Hero = () => {
           </motion.a>
         </div>
       </section>
-
-      {/* ABOUT */}
-      {/* <section
-        id="about"
-        className="relative min-h-[165px] overflow-hidden bg-[#202020] px-7 py-7 text-white sm:px-12 md:px-30"
-      >
-        <div className="pointer-events-none absolute -right-8 -top-24 select-none text-[220px] font-black italic text-black/70 sm:text-[300px]">
-          r
-        </div>
-
-        <div className="relative z-10 max-w-[650px]">
-          <h2 className="text-base font-extrabold tracking-[0.2em] sm:text-lg">
-            ABOUT ME
-          </h2>
-
-          <p className="mt-3 text-[10px] leading-[1.7] text-gray-300 sm:text-[11px]">
-            I am a passionate Frontend Developer focused on building modern,
-            responsive, and user-friendly web applications. I work with HTML,
-            CSS, JavaScript, React, Next.js, and Tailwind CSS. I enjoy turning
-            creative ideas into clean interfaces and continuously improving my
-            development skills.
-          </p>
-
-          <a
-            href="#portfolio"
-            className="mt-4 inline-flex items-center gap-2 border-y border-gray-400 py-2 pr-3 text-[10px] transition hover:text-gray-400"
-          >
-            READ MORE
-            <FaArrowRight className="text-[9px]" />
-          </a>
-        </div>
-      </section> */}
-
-      {/* SKILLS */}
-      {/* <section
-        id="skills"
-        className="bg-[#d6d6d6] px-7 py-12 text-black sm:px-12"
-      >
-        <h2 className="text-2xl font-extrabold tracking-widest">MY SKILLS</h2>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          {[
-            "HTML5",
-            "CSS3",
-            "Tailwind CSS",
-            "JavaScript",
-            "React",
-            "Next.js",
-            "Node.js",
-            "Express.js",
-            "MongoDB",
-            "Firebase",
-          ].map((skill) => (
-            <span
-              key={skill}
-              className="border border-black/20 bg-white/50 px-4 py-2 text-sm font-semibold transition hover:bg-black hover:text-white"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section> */}
-
-      {/* PORTFOLIO */}
-      {/* <section
-        id="portfolio"
-        className="bg-[#202020] px-7 py-12 text-white sm:px-12"
-      >
-        <h2 className="text-2xl font-extrabold tracking-widest">
-          MY PORTFOLIO
-        </h2>
-
-        <p className="mt-3 max-w-xl text-sm leading-7 text-gray-400">
-          Explore my web development projects built with React, Next.js,
-          Tailwind CSS, Node.js, Express.js, and MongoDB.
-        </p>
-
-        <a
-          href="https://github.com/dev-riaz"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-5 inline-flex items-center gap-2 border border-white/30 px-5 py-3 text-sm transition hover:bg-white hover:text-black"
-        >
-          <FaGithub />
-          View Projects
-          <FaArrowRight />
-        </a>
-      </section> */}
-
-      {/* CONTACT */}
-      {/* <footer
-        id="contact"
-        className="flex flex-col gap-4 bg-black px-7 py-8 text-white sm:flex-row sm:items-center sm:justify-between sm:px-12"
-      >
-        <div>
-          <h2 className="text-lg font-bold">Let's work together.</h2>
-          <p className="mt-1 text-sm text-gray-400">
-            Have a project in mind? Feel free to contact me.
-          </p>
-        </div>
-
-        <a
-          href="mailto:your-email@example.com"
-          className="flex w-fit items-center gap-2 rounded-full bg-white px-5 py-3 text-xs font-bold text-black transition hover:bg-gray-300"
-        >
-          <FaAt />
-          CONTACT ME
-        </a>
-      </footer> */}
     </main>
   );
 };
 
 export default Hero;
-
-// function SocialLink({ href, label, icon }) {
-//   const external = href.startsWith("http");
-
-//   return (
-//     <a
-//       href={href}
-//       aria-label={label}
-//       target={external ? "_blank" : undefined}
-//       rel={external ? "noreferrer" : undefined}
-//       className="flex h-9 w-9 items-center justify-center bg-[#c5c5c5] text-xl text-black shadow-md transition hover:-translate-y-1 hover:bg-black hover:text-white"
-//     >
-//       {icon}
-//     </a>
-//   );
-// }

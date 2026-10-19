@@ -39,7 +39,7 @@ const projects = [
 export default function Projects() {
   return (
     <section
-      id="portfolio"
+      id="projects"
       className="border-y border-white/5 bg-[#1b2433] px-5 py-16 sm:px-8 md:py-20"
     >
       <div className="mx-auto max-w-5xl">
