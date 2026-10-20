@@ -355,7 +355,7 @@ const Hero = () => {
                 setIsDownloaded(false);
 
                 const link = document.createElement("a");
-                link.href = "/Riaz Mahamud-fullStack.pdf";
+                link.href = "/Riaz Mahamud fullStack-resume.pdf";
                 link.download = "Riaz-Mahamud-CV.pdf";
                 document.body.appendChild(link);
                 link.click();
