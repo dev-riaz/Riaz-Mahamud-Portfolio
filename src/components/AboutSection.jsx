@@ -191,117 +191,224 @@ export default function About() {
         </motion.div>
 
         {/* Qualification cards */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {qualifications.map((card, index) => {
             const Icon = card.icon;
 
             return (
-              <motion.article
+              <motion.div
                 key={card.number}
-                initial={{ opacity: 0, y: 35 }}
+                initial={{ opacity: 0, y: 45 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.12,
-                  ease: "easeOut",
+                  duration: 0.7,
+                  delay: index * 0.15,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
-                whileHover={{ y: -5 }}
-                className="group relative rounded-2xl p-5
-                   border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]"
+                className="h-full"
               >
-                {/* Icon and number */}
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e5e5e5] text-[#1b2433] shadow-lg transition-transform duration-300 group-hover:scale-105">
-                    <Icon size={21} />
-                  </div>
+                {/* Entire card continuously floats */}
+                <motion.article
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.25,
+                    },
+                  }}
+                  whileHover={{
+                    scale: 1.02,
+                    y: -9,
+                    transition: {
+                      duration: 0.25,
+                      ease: "easeOut",
+                    },
+                  }}
+                  className="group relative h-full overflow-hidden rounded-2xl
+            border border-slate-500/20 bg-[#1b2433] p-5
+            text-[#e2e8f0]
+            shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]
+            transition-[border-color,box-shadow] duration-300
+            hover:border-slate-400/50
+            hover:shadow-[0_14px_35px_rgba(0,0,0,0.28)]"
+                >
+                  {/* Subtle hover background */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0
+              bg-gradient-to-br from-slate-400/[0.06]
+              via-transparent to-transparent opacity-0
+              transition-opacity duration-500 group-hover:opacity-100"
+                  />
 
-                  <span className="text-sm font-semibold text-slate-400">
-                    {card.number}
-                  </span>
-                </div>
+                  <div className="relative z-10">
+                    {/* Icon and number */}
+                    <div className="mb-4 flex items-center justify-between">
+                      <div
+                        className="flex h-11 w-11 items-center justify-center
+                  rounded-xl bg-[#e5e5e5] text-[#1b2433]
+                  shadow-lg transition-all duration-300
+                  group-hover:bg-white group-hover:shadow-xl"
+                      >
+                        <Icon size={21} />
+                      </div>
 
-                {/* Card title */}
-                <h3 className="min-h-7 text-base font-bold leading-6 tracking-tight">
-                  {card.title}
-                </h3>
-
-                <div className="my-3 h-px bg-slate-500/60 transition-colors group-hover:bg-slate-300/60" />
-
-                {/* Card content */}
-                <div className="space-y-4">
-                  {card.items.map((item, itemIndex) => (
-                    <div key={item.title} className="relative pl-5">
-                      {/* Timeline marker */}
-                      <span className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-slate-300 bg-[#1b2433] shadow-[0_0_8px_rgba(226,232,240,0.35)]" />
-
-                      {itemIndex < card.items.length - 1 && (
-                        <span className="absolute bottom-[-18px] left-[4px] top-4 w-px bg-slate-500/70" />
-                      )}
-
-                      <h4 className="text-sm font-semibold leading-5 text-slate-100">
-                        {item.title}
-                      </h4>
-
-                      {item.subtitle && (
-                        <p className="mt-1.5 text-xs leading-5 text-slate-400">
-                          {item.subtitle}
-                        </p>
-                      )}
-
-                      {item.date && (
-                        <p className="mt-1.5 text-xs text-slate-400">
-                          {item.date}
-                        </p>
-                      )}
-
-                      {item.points && (
-                        <ul className="mt-2 space-y-2">
-                          {item.points.map((point) => (
-                            <li
-                              key={point}
-                              className="flex items-start gap-2 text-xs leading-5 text-slate-300"
-                            >
-                              <FaCheckCircle className="mt-1 shrink-0 text-slate-300" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <span
+                        className="text-sm font-semibold text-slate-400
+                  transition-colors duration-300
+                  group-hover:text-slate-200"
+                      >
+                        {card.number}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </motion.article>
+
+                    {/* Card title */}
+                    <h3
+                      className="min-h-7 text-base font-bold leading-6
+                tracking-tight text-[#e2e8f0]"
+                    >
+                      {card.title}
+                    </h3>
+
+                    {/* Divider */}
+                    <div
+                      className="my-3 h-px origin-left bg-slate-500/60
+                transition-colors duration-300
+                group-hover:bg-slate-300/80"
+                    />
+
+                    {/* Timeline content */}
+                    <div className="space-y-4">
+                      {card.items.map((item, itemIndex) => (
+                        <div key={item.title} className="relative pl-5">
+                          {/* Timeline marker */}
+                          <span
+                            className="absolute left-0 top-1.5 h-2.5 w-2.5
+                      rounded-full border-2 border-slate-300
+                      bg-[#1b2433]
+                      shadow-[0_0_8px_rgba(226,232,240,0.35)]
+                      transition-shadow duration-300
+                      group-hover:shadow-[0_0_12px_rgba(226,232,240,0.5)]"
+                          />
+
+                          {/* Timeline line */}
+                          {itemIndex < card.items.length - 1 && (
+                            <span
+                              className="absolute bottom-[-18px] left-[4px]
+                        top-4 w-px bg-slate-500/70"
+                            />
+                          )}
+
+                          {/* Item title */}
+                          <h4
+                            className="text-sm font-semibold leading-5
+                      text-slate-100"
+                          >
+                            {item.title}
+                          </h4>
+
+                          {/* Subtitle */}
+                          {item.subtitle && (
+                            <p className="mt-1.5 text-xs leading-5 text-slate-400">
+                              {item.subtitle}
+                            </p>
+                          )}
+
+                          {/* Date */}
+                          {item.date && (
+                            <p className="mt-1.5 text-xs text-slate-400">
+                              {item.date}
+                            </p>
+                          )}
+
+                          {/* Points */}
+                          {item.points && (
+                            <ul className="mt-2 space-y-2">
+                              {item.points.map((point) => (
+                                <li
+                                  key={point}
+                                  className="flex items-start gap-2
+                            text-xs leading-5 text-slate-300"
+                                >
+                                  <FaCheckCircle className="mt-1 shrink-0 text-slate-300" />
+                                  <span>{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.article>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Footer
+        {/* Footer */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-500/30 pt-5"
         >
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-slate-400" />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
-              Always Learning&nbsp; / &nbsp;Always Growing
-            </p>
+          {/* Continuous sliding text */}
+          <div className="flex items-center gap-3 overflow-hidden">
+            <motion.span
+              animate={{ x: [0, 8, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="h-px w-10 shrink-0 bg-slate-400"
+            />
+
+            <div className="overflow-hidden">
+              <motion.p
+                animate={{ x: [0, 12, 0] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                Always Learning&nbsp; / &nbsp;Always Growing
+              </motion.p>
+            </div>
           </div>
 
+          {/* Continuously sliding dots */}
           <div className="flex items-center gap-2">
             {[0, 1, 2, 3].map((dot) => (
-              <span
+              <motion.span
                 key={dot}
+                animate={{
+                  x: [0, 5, 0],
+                  opacity: [0.4, 1, 0.4],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  delay: dot * 0.2,
+                  ease: "easeInOut",
+                }}
                 className={`h-1.5 rounded-full ${
                   dot === 0 ? "w-6 bg-[#e5e5e5]" : "w-4 bg-slate-500/60"
                 }`}
               />
             ))}
           </div>
-        </motion.div> */}
+        </motion.div>
       </div>
     </section>
   );

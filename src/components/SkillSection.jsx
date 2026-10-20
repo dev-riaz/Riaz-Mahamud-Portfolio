@@ -165,6 +165,12 @@ function SkillCard({ group, index }) {
 }
 
 export default function SkillSection() {
+  const rows = [
+    technologies.filter((_, index) => index % 3 === 0),
+    technologies.filter((_, index) => index % 3 === 1),
+    technologies.filter((_, index) => index % 3 === 2),
+  ];
+
   return (
     <section
       id="skills"
@@ -203,34 +209,49 @@ export default function SkillSection() {
         </motion.div>
 
         {/* Technology icons */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="mb-16 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5"
-        >
-          {technologies.map((tech) => {
-            const TechIcon = tech.icon;
-
-            return (
+        {/* Skills marquee — 3 animated rows */}
+        <div className="mb-16 space-y-4  overflow-hidden">
+          {rows.map((row, rowIndex) => (
+            <div key={rowIndex} className="overflow-hidden">
               <motion.div
-                key={tech.name}
-                variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="flex items-center gap-3 rounded-xl border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] p-4"
+                className="flex w-max gap-4"
+                animate={{
+                  x: rowIndex === 1 ? ["-50%", "0%"] : ["0%", "-50%"],
+                }}
+                transition={{
+                  duration: Math.max(row.length * 10, 60),
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
               >
-                <TechIcon
-                  className="shrink-0 text-2xl"
-                  style={{ color: tech.color }}
-                />
-                <span className="text-sm font-medium text-white/80">
-                  {tech.name}
-                </span>
+                {[...row, ...row, ...row, ...row].map((tech, index) => {
+                  const TechIcon = tech.icon;
+
+                  return (
+                    <motion.div
+                      key={`${tech.name}-${index}`}
+                      whileHover={{ y: -5, scale: 1.04 }}
+                      className="flex w-[165px] shrink-0 items-center gap-3
+                rounded-xl border border-slate-500/20
+                bg-[#1b2433] p-4 text-[#e2e8f0]
+                shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044]
+                transition-colors duration-300 hover:border-slate-400/50"
+                    >
+                      <TechIcon
+                        className="shrink-0 text-2xl"
+                        style={{ color: tech.color }}
+                      />
+
+                      <span className="whitespace-nowrap text-sm font-medium text-white/80">
+                        {tech.name}
+                      </span>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
-            );
-          })}
-        </motion.div>
+            </div>
+          ))}
+        </div>
 
         {/* Introduction card */}
         <motion.div
