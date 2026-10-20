@@ -10,6 +10,7 @@ export default function LenisProvider({ children }) {
         duration: 1.2,
         smoothWheel: true,
         autoRaf: true,
+        anchors: true,
       }}
     >
       {children}

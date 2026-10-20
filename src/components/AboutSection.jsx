@@ -184,10 +184,39 @@ export default function About() {
             </p>
           </div>
 
-          <div className="flex w-fit items-center gap-2 rounded-full border border-slate-500/50 px-4 py-2 text-xs text-slate-300">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-slate-200" />
-            Open to new opportunities
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.5,
+              ease: "easeOut",
+            }}
+            className="group relative flex w-fit items-center gap-2 overflow-hidden rounded-full border border-emerald-400/30 bg-slate-900/60 px-4 py-2 text-xs text-slate-300 shadow-[0_0_15px_rgba(52,211,153,0.08)] transition-all duration-500 hover:border-emerald-400/60 hover:shadow-[0_0_25px_rgba(52,211,153,0.18)]"
+          >
+            {/* Shine Animation */}
+            <motion.span
+              initial={{ x: "-150%" }}
+              animate={{ x: "250%" }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                repeatDelay: 2,
+                ease: "easeInOut",
+              }}
+              className="pointer-events-none absolute inset-y-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+            />
+
+            {/* Animated Status Dot */}
+            <span className="relative flex h-2 w-2 shrink-0 items-center justify-center">
+              <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+            </span>
+
+            <span className="relative z-10 tracking-wide">
+              Open to new opportunities
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Qualification cards */}
@@ -199,19 +228,30 @@ export default function About() {
             return (
               <motion.div
                 key={card.number}
-                initial={{ opacity: 0, y: 45 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                initial={{
+                  opacity: 0,
+                  x: index === 0 ? 0 : -index * 12,
+                  y: -index * 18,
+                  scale: 0.92,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
+                  duration: 0.8,
+                  delay: index * 0.22,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="h-full"
+                className="relative h-full"
+                style={{ zIndex: qualifications.length - index }}
               >
-                {/* Entire card continuously floats */}
+                {/* Continuously floating card */}
                 <motion.article
-                  animate={{ y: [0, -15, 0] }}
+                  animate={{ y: [0, -10, 0] }}
                   transition={{
                     y: {
                       duration: 3,
@@ -222,11 +262,7 @@ export default function About() {
                   }}
                   whileHover={{
                     scale: 1.02,
-                    y: -9,
-                    transition: {
-                      duration: 0.25,
-                      ease: "easeOut",
-                    },
+                    transition: { duration: 0.25 },
                   }}
                   className="group relative h-full overflow-hidden rounded-2xl
             border border-slate-500/20 bg-[#1b2433] p-5
@@ -267,72 +303,49 @@ export default function About() {
                     </div>
 
                     {/* Card title */}
-                    <h3
-                      className="min-h-7 text-base font-bold leading-6
-                tracking-tight text-[#e2e8f0]"
-                    >
+                    <h3 className="min-h-7 text-base font-bold leading-6 tracking-tight text-[#e2e8f0]">
                       {card.title}
                     </h3>
 
-                    {/* Divider */}
-                    <div
-                      className="my-3 h-px origin-left bg-slate-500/60
-                transition-colors duration-300
-                group-hover:bg-slate-300/80"
-                    />
+                    <div className="my-3 h-px origin-left bg-slate-500/60 transition-colors duration-300 group-hover:bg-slate-300/80" />
 
                     {/* Timeline content */}
                     <div className="space-y-4">
                       {card.items.map((item, itemIndex) => (
                         <div key={item.title} className="relative pl-5">
-                          {/* Timeline marker */}
                           <span
                             className="absolute left-0 top-1.5 h-2.5 w-2.5
                       rounded-full border-2 border-slate-300
                       bg-[#1b2433]
-                      shadow-[0_0_8px_rgba(226,232,240,0.35)]
-                      transition-shadow duration-300
-                      group-hover:shadow-[0_0_12px_rgba(226,232,240,0.5)]"
+                      shadow-[0_0_8px_rgba(226,232,240,0.35)]"
                           />
 
-                          {/* Timeline line */}
                           {itemIndex < card.items.length - 1 && (
-                            <span
-                              className="absolute bottom-[-18px] left-[4px]
-                        top-4 w-px bg-slate-500/70"
-                            />
+                            <span className="absolute bottom-[-18px] left-[4px] top-4 w-px bg-slate-500/70" />
                           )}
 
-                          {/* Item title */}
-                          <h4
-                            className="text-sm font-semibold leading-5
-                      text-slate-100"
-                          >
+                          <h4 className="text-sm font-semibold leading-5 text-slate-100">
                             {item.title}
                           </h4>
 
-                          {/* Subtitle */}
                           {item.subtitle && (
                             <p className="mt-1.5 text-xs leading-5 text-slate-400">
                               {item.subtitle}
                             </p>
                           )}
 
-                          {/* Date */}
                           {item.date && (
                             <p className="mt-1.5 text-xs text-slate-400">
                               {item.date}
                             </p>
                           )}
 
-                          {/* Points */}
                           {item.points && (
                             <ul className="mt-2 space-y-2">
                               {item.points.map((point) => (
                                 <li
                                   key={point}
-                                  className="flex items-start gap-2
-                            text-xs leading-5 text-slate-300"
+                                  className="flex items-start gap-2 text-xs leading-5 text-slate-300"
                                 >
                                   <FaCheckCircle className="mt-1 shrink-0 text-slate-300" />
                                   <span>{point}</span>

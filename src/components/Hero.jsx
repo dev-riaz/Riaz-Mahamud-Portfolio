@@ -24,6 +24,7 @@ import { TbHomeFilled } from "react-icons/tb";
 import { LuBlocks } from "react-icons/lu";
 import { ImSpinner2 } from "react-icons/im";
 import HeroTopText from "./HeroTopText";
+import { TypeAnimation } from "react-type-animation";
 
 // navContent
 const navContainer = {
@@ -281,8 +282,14 @@ const Hero = () => {
           </Link>
 
           <div className="my-auto pb-4">
-            <p className="mb-6 text-xl font-semibold">Hi, I am</p>
-
+            <TypeAnimation
+              sequence={["Hi, I am"]}
+              wrapper="p"
+              speed={30}
+              cursor={false}
+              repeat={0}
+              className="mb-6 text-xl font-semibold"
+            />
             <motion.h1
               variants={textReveal}
               initial="hidden"

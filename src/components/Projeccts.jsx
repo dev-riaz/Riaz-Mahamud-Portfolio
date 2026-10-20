@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const projects = [
   {
@@ -37,6 +39,8 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [showProjects, setShowProjects] = useState(false);
+
   return (
     <section
       id="projects"
@@ -49,14 +53,43 @@ export default function Projects() {
         </h2>
 
         {/* Project Cards */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] p-6">
+        <motion.div
+          onViewportEnter={() => setShowProjects(true)}
+          className="grid grid-cols-1 gap-6 border-transparent bg-[#1b2433] p-6 text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] sm:grid-cols-2 lg:grid-cols-3"
+        >
           {projects.map((project, index) => (
-            <a
+            <motion.a
               key={project.title}
               href={project.link}
               target={project.link !== "#" ? "_blank" : undefined}
               rel={project.link !== "#" ? "noopener noreferrer" : undefined}
               aria-label={`View ${project.title}`}
+              initial={{
+                opacity: 0,
+                scale: 0.75,
+                y: 35,
+                rotate: index % 2 === 0 ? -4 : 4,
+              }}
+              animate={
+                showProjects
+                  ? {
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                      rotate: 0,
+                    }
+                  : {
+                      opacity: 0,
+                      scale: 0.75,
+                      y: 35,
+                      rotate: index % 2 === 0 ? -4 : 4,
+                    }
+              }
+              transition={{
+                duration: 0.75,
+                delay: index * 0.13,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="group relative block aspect-[1.55/1] overflow-hidden rounded-lg text-[#e5e5e5]"
             >
               {/* Project Image */}
@@ -69,15 +102,15 @@ export default function Projects() {
               />
 
               {/* Dark Overlay */}
-              <div className="absolute inset-0 transition-colors duration-300 " />
+              <div className="absolute inset-0 transition-colors duration-300" />
 
               {/* Hover Content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                <h3 className="translate-y-3 text-center text-base font-bold text-white transition-transform duration-300 group-hover:translate-y-0">
+                <h3 className="translate-y-3 rounded-2xl bg-[#1b2433] p-2 text-center text-base font-bold text-white transition-transform duration-300 group-hover:translate-y-0">
                   {project.title}
                 </h3>
 
-                <FaExternalLinkAlt className="translate-y-3 text-xl  transition-transform duration-300 group-hover:translate-y-0" />
+                <FaExternalLinkAlt className="h-10 w-10 translate-y-3 bg-[#1b2433] p-2 text-xl text-white transition-transform duration-300 group-hover:translate-y-0" />
               </div>
 
               {/* First Card Label */}
@@ -90,9 +123,9 @@ export default function Projects() {
                   <FaExternalLinkAlt className="text-xl text-cyan-300" />
                 </div>
               )}
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

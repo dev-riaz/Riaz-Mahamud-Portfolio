@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 import {
   FaCode,
   FaCheckCircle,
-  FaArrowRight,
   FaGlobe,
   FaDatabase,
   FaCog,
@@ -165,6 +165,8 @@ function SkillCard({ group, index }) {
 }
 
 export default function SkillSection() {
+  const [hasSpread, setHasSpread] = useState(false);
+
   const rows = [
     technologies.filter((_, index) => index % 3 === 0),
     technologies.filter((_, index) => index % 3 === 1),
@@ -290,16 +292,62 @@ export default function SkillSection() {
               const StatIcon = item.icon;
 
               return (
-                <div
-                  key={item.label}
-                  // className="rounded-xl border border-white/10 bg-black/10 p-4"
-                  className="border-transparent bg-[#1b2433] text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] hover:text-[#e2e8f0] hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044] rounded-xl p-4"
-                >
-                  <StatIcon className="mb-3 text-lg text-[#e2e8f0]" />
-                  <p className="text-2xl font-bold">{item.value}</p>
-                  <p className="mt-1 text-xs text-[#e2e8f0cf] sm:text-sm">
-                    {item.label}
-                  </p>
+                <div key={item.label} className="relative">
+                  {/* Animated border */}
+                  <svg
+                    className="pointer-events-none absolute inset-0 z-20 h-full w-full"
+                    viewBox="0 0 200 140"
+                    preserveAspectRatio="none"
+                  >
+                    <defs>
+                      <filter id={`glow-${item.label.replace(/\s/g, "")}`}>
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feMerge>
+                          <feMergeNode in="blur" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                      </filter>
+                    </defs>
+
+                    {/* Two white points following the rounded rectangle border */}
+                    {[0, 1].map((point) => (
+                      <circle
+                        key={point}
+                        r="3"
+                        fill="#ffffff"
+                        filter={`url(#glow-${item.label.replace(/\s/g, "")})`}
+                      >
+                        <animateMotion
+                          dur="10s"
+                          begin={`${point * -3}s`}
+                          repeatCount="indefinite"
+                          path="
+                  M 18,1
+                  H 182
+                  Q 199,1 199,18
+                  V 122
+                  Q 199,139 182,139
+                  H 18
+                  Q 1,139 1,122
+                  V 18
+                  Q 1,1 18,1
+                  Z
+                "
+                        />
+                      </circle>
+                    ))}
+                  </svg>
+
+                  {/* Original card */}
+                  <div className="relative z-10 min-h-[130px] rounded-xl border border-transparent bg-[#1b2433] p-4 text-[#e2e8f0] shadow-[5px_5px_10px_#101722,-5px_-5px_10px_#263044] transition-shadow duration-300 hover:shadow-[inset_4px_4px_8px_#101722,inset_-4px_-4px_8px_#263044]">
+                    <StatIcon className="mb-3 text-lg text-[#e2e8f0]" />
+
+                    <p className="text-2xl font-bold">{item.value}</p>
+
+                    <p className="mt-1 text-xs text-[#e2e8f0cf] sm:text-sm">
+                      {item.label}
+                    </p>
+                  </div>
                 </div>
               );
             })}
@@ -308,37 +356,168 @@ export default function SkillSection() {
 
         {/* Skill category cards */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+          onViewportEnter={() => setHasSpread(true)}
+          layout
+          transition={{
+            layout: {
+              duration: 1.2,
+              ease: [0.22, 1, 0.36, 1],
+            },
+          }}
+          className={
+            hasSpread
+              ? "grid gap-8 md:grid-cols-2 xl:grid-cols-3"
+              : "relative min-h-[420px]"
+          }
         >
           {skillGroups.map((group, index) => (
-            <SkillCard key={group.title} group={group} index={index} />
+            <motion.div
+              key={group.title}
+              layout
+              initial={false}
+              animate={{
+                x: hasSpread ? 0 : "-50%",
+                scale: hasSpread ? 1 : 0.92,
+                rotate: hasSpread ? 0 : index % 2 === 0 ? -3 : 3,
+              }}
+              transition={{
+                layout: {
+                  duration: 2.2,
+                  delay: hasSpread ? index * 0.12 : 0,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+                x: {
+                  duration: 1.2,
+                  delay: hasSpread ? index * 0.12 : 0,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+                scale: {
+                  duration: 1,
+                  delay: hasSpread ? index * 0.12 : 0,
+                },
+                rotate: {
+                  duration: 1,
+                  delay: hasSpread ? index * 0.12 : 0,
+                },
+              }}
+              style={
+                hasSpread
+                  ? {
+                      position: "relative",
+                      left: "auto",
+                      top: "auto",
+                      width: "100%",
+                      maxWidth: "none",
+                      zIndex: 1,
+                    }
+                  : {
+                      position: "absolute",
+                      left: "50%",
+                      top: 0,
+                      width: "100%",
+                      maxWidth: "420px",
+                      zIndex: skillGroups.length - index,
+                    }
+              }
+              className="relative"
+            >
+              {/* Orbit Border */}
+              <svg
+                viewBox="0 0 320 240"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute -inset-2 z-20 h-[calc(100%+16px)] w-[calc(100%+16px)] overflow-visible"
+              >
+                <defs>
+                  <filter
+                    id={`whiteGlow-${index}`}
+                    x="-100%"
+                    y="-300%"
+                    width="300%"
+                    height="700%"
+                  >
+                    <feGaussianBlur stdDeviation="3" />
+                  </filter>
+                </defs>
+
+                {/* Subtle Orbit */}
+                <rect
+                  x="3"
+                  y="3"
+                  width="314"
+                  height="234"
+                  rx="20"
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="0.8"
+                  strokeOpacity="0.18"
+                />
+
+                {/* First Moving Light */}
+                <g>
+                  <rect
+                    x="-15"
+                    y="-1.5"
+                    width="30"
+                    height="3"
+                    rx="1.5"
+                    fill="#22c55e"
+                  />
+                  <rect
+                    x="-15"
+                    y="-1.5"
+                    width="30"
+                    height="3"
+                    rx="1.5"
+                    fill="#22c55e"
+                    opacity="0.8"
+                    filter={`url(#whiteGlow-${index})`}
+                  />
+                  <animateMotion
+                    dur="20s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                    rotate="auto"
+                    path="M 23,3 H 297 Q 317,3 317,23 V 217 Q 317,237 297,237 H 23 Q 3,237 3,217 V 23 Q 3,3 23,3 Z"
+                  />
+                </g>
+
+                {/* Second Moving Light */}
+                <g>
+                  <rect
+                    x="-15"
+                    y="-1.5"
+                    width="30"
+                    height="3"
+                    rx="1.5"
+                    fill="#22c55e"
+                  />
+                  <rect
+                    x="-15"
+                    y="-1.5"
+                    width="30"
+                    height="3"
+                    rx="1.5"
+                    fill="#22c55e"
+                    opacity="0.8"
+                    filter={`url(#whiteGlow-${index})`}
+                  />
+                  <animateMotion
+                    dur="20s"
+                    begin="-6.5s"
+                    repeatCount="indefinite"
+                    rotate="auto"
+                    path="M 23,3 H 297 Q 317,3 317,23 V 217 Q 317,237 297,237 H 23 Q 3,237 3,217 V 23 Q 3,3 23,3 Z"
+                  />
+                </g>
+              </svg>
+
+              {/* Existing Skill Card */}
+              <div className="relative z-10">
+                <SkillCard group={group} index={index} />
+              </div>
+            </motion.div>
           ))}
         </motion.div>
-
-        {/* Footer */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 sm:flex-row"
-        >
-          <p className="text-center text-sm text-white/45 sm:text-left">
-            Always learning. Always building. Always improving.
-          </p>
-
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-white/80 transition-colors hover:text-white"
-          >
-            Explore My Projects
-            <FaArrowRight />
-          </a>
-        </motion.div> */}
       </div>
     </section>
   );
