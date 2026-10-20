@@ -125,6 +125,8 @@ const socialItem = {
   },
 };
 
+const Hero = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("#home");
 
   const [isScrolled, setIsScrolled] = useState(false);
